@@ -22,3 +22,5 @@ upload:
 
 clean:
 	rm -f $(BUILD_DIR)$(TARGET).elf $(OBJ_DIR)*.o $(DEBUG_DIR)*.map
+
+re: clean all
