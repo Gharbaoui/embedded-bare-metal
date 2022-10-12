@@ -231,27 +231,27 @@ uint32_t isr_vertor[] __attribute__((section (".ivh_addrs"))) = {
 	(uint32_t)FMPI2C1_ER_IRQHandler,
 };
 
-void	main(void);
+void	custom_main(void);
 
 void	Reset_Handler(void)
 {
 	// copy all data section to ram
-	uint32_t size = (uint32_t)_edata - (uint32_t)_sdata;
+	uint32_t size = (uint32_t)&_edata - (uint32_t)&_sdata;
 	uint32_t *src_addr = &_etext;
 	uint32_t *dst_data = &_sdata;
 
+
 	for (uint32_t i = 0; i < size; ++i)
 		*(dst_data + i) = *(src_addr + i);
-	
+
 	// init bss at ram
-	size = (uint32_t)_ebss - (uint32_t)_sbss;
+	size = (uint32_t)&_ebss - (uint32_t)&_sbss;
 	src_addr = &_sbss;
 
 	for (uint32_t i = 0; i < size; ++i)
 		*(src_addr + i) = 0;
 	// call main
-	main();
-
+	custom_main();
 }
 
 
